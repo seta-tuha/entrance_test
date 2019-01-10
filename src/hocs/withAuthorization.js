@@ -1,6 +1,6 @@
 import React from 'react';
-import UnAuthorizedPage from '../pages/UnAuthorized';
-import LoginPage from '../pages/Login';
+import UnAuthorizedPage from 'pages/UnAuthorized';
+import LoginPage from 'pages/Login';
 
 
 const withAuthorization  = (alowedRoles) => WrappedComponent => {
