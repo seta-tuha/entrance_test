@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { withFirebase } from '../../firebase';
+import { withFirebase } from '../../../firebase';
 
 const styles = theme => ({
   loginForm: {
@@ -44,19 +44,15 @@ class Login extends React.Component {
   }
 
   handleSubmit = e => {
-    console.log(this.state);
-    console.log('hello');
     const { email, password } = this.state;
     e.preventDefault();
 
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(res => {
         this.setState({ ...INITIAL_STATE });
-        console.log('abc');
       })
       .catch(error => {
-        console.log(error);
         this.setState({ error });
       });
   }
@@ -64,8 +60,6 @@ class Login extends React.Component {
   render() {
     const { classes } = this.props;
     const { email, password, error } = this.state;
-
-    console.log(this.props);
 
     return (
       <Paper className={classes.loginForm}>

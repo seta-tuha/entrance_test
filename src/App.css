@@ -1,32 +1,144 @@
-.App {
-  text-align: center;
+.editorContainer {
+	padding: 1em;
+	margin: 1em;
+	border: 1px solid black;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.editors {
+	margin: 0.3rem 0;
+	text-align: left;
+	border: none;
+	padding: 0.5em;
+	border-radius: 8px;
+	font-family: "Open Sans";
+	font-size: 100%;
+	/* background-image: linear-gradient(to bottom, #fdfbfb 0%, #f6f7fb 100%); */
+	background-color: red;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.answer-editors {
+	margin: 0.3rem 0 0.3rem 1rem;
+	text-align: left;
+	border: none;
+	padding: 0.5em;
+	border-radius: 8px;
+	font-family: "Open Sans";
+	font-size: 100%;
+	/* background-image: linear-gradient(to bottom, #fdfbfb 0%, #f6f7fb 100%); */
+	background-color: red;
 }
 
-.App-link {
-  color: #61dafb;
+.RichEditor-activeButton {
+	background-color: #feb47b;
+	color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+select {
+	padding: 0.5em;
+	border: none;
+	border-radius: 6px;
+	font-family: "Open Sans";
+	font-size: 13px;
+	height: 2.25em;
+}
+
+editor-toolbar,
+select {
+	background-image: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.styleButton#bold {
+	font-weight: bold;
+}
+
+.styleButton#italic {
+	font-style: italic;
+	font-family: serif;
+}
+
+.styleButton#underline {
+	text-decoration: underline;
+}
+
+.toolbar {
+	margin-bottom: 0.5rem;
+	/* padding: 0.5em; */
+}
+
+.styleButton,
+.RichEditor-styleButton {
+	padding: 0.5em;
+	background-image: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
+	border: none;
+	/* margin: 0.35em; */
+	width: 2.75em;
+	font-family: "Open Sans";
+	font-size: 13px;
+	height: 2.25em;
+	border-radius: 4px;
+}
+
+.RichEditor-activeButton {
+	background-color: #feb47b;
+	color: white;
+}
+
+ .public-DraftStyleDefault-pre {
+  background-color: rgba(0,0,0,.05);
+  font-family: Inconsolata,Menlo,Consolas,monospace;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.answer-group {
+	margin: 1rem;
+}
+
+.answer-name {
+	display: inline;
+	margin-left: 1rem;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.answer-wrapper svg:hover {
+	cursor: pointer;
+}
+
+.answer {
+	flex-grow: 1;
+}
+
+.editor {
+	flex-grow: 1;
+}
+
+.config {
+	margin-bottom: 1rem;
+}
+
+.answerName {
+	border-radius: 15px;
+	background: green;
+}
+
+.checkIcon:hover {
+	color: green;
+}
+
+.removeIcon:hover {
+	color: red;
+}
+
+.isAnswer {
+	color: green;
 }
