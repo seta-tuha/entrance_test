@@ -16,7 +16,7 @@ class AnswerInput extends React.Component {
   }
 
   render() {
-    const { name, isAnswer } = this.props;
+    const { name, isAnswer, handleChange, content } = this.props;
 
     return (
       <div className="answer-wrapper flex-row">
@@ -31,7 +31,7 @@ class AnswerInput extends React.Component {
             <span className={isAnswer ? "answerName" : "optionName"}>{name}.</span>
           </div>
           <div className="editor">
-            <RichInput />
+            <RichInput handleChange={handleChange(name)} content={content} />
           </div>
         </div>
       </div>

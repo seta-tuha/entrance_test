@@ -1,28 +1,49 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  ContentState,
+  ContentBlock,
+  convertFromRaw
+} from 'draft-js';
+
 import
 BlockStyleToolbar,
 { getBlockStyle }
   from "./components/blockStyles/BlockStyleToolbar";
 import './App.css';
 
+const test = { "blocks": [{ "key": "ep7p", "text": "xin chao", "type": "code-block", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }], "entityMap": {} }
+
+const content = '{ "blocks": [{ "key": "ep7p", "text": "xin chao", "type": "code-block", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }], "entityMap": {} }'
+
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+
+    this.state = {
+      editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
+    }
+
+    console.log(test['blocks']);
     this.onChange = (editorState) => this.setState({ editorState });
-  }
-  _onBoldClick() {
-    console.log('abc');
-    this.onChange(RichUtils.toggleInlineStyle(
-      this.state.editorState,
-      'BOLD'
-    ));
   }
 
   toggleBlockType = (blockType) => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   };
+
+  handle = () => {
+    const { editorState } = this.state;
+    console.log(convertToRaw(editorState.getCurrentContent()));
+    const note = { content: convertToRaw(editorState.getCurrentContent()) }
+    note["content"] = JSON.stringify(note.content);
+    this.setState({ content: note.content });
+    console.log(note);
+    localStorage.setItem('test', note.content);
+  }
 
   render() {
     return (
@@ -41,11 +62,13 @@ class MyEditor extends React.Component {
             <Editor
               blockStyleFn={getBlockStyle}
               editorState={this.state.editorState}
-              handleKeyCommand={this.handleKeyCommand}
               onChange={this.onChange}
             />
           </div>
         </div>
+        <button type="button" onClick={this.handle}>
+          Get Content
+        </button>
       </div>
     );
   }

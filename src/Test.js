@@ -108,3 +108,5 @@ MenuAppBar.propTypes = {
 };
 
 export default withStyles(styles)(MenuAppBar);
+
+const test = { "blocks": [{ "key": "ep7p", "text": "xin chao", "type": "code-block", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }], "entityMap": {} }

@@ -1,5 +1,4 @@
 import React from 'react';
-import HeaderStyleDropdown from './HeaderStyleDropdown';
 import BlockStyleButton from './BlockStyleButton'
 
 export const BLOCK_TYPES = [
@@ -35,7 +34,6 @@ class BlockStyleToolbar extends React.Component {
                 onToggle={this.props.onToggle}
                 style={type.style}
                 key={type.label}
-                type={type}
               />
             );
           })}

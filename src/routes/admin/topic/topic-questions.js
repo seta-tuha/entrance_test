@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import TablePagination from '@material-ui/core/TablePagination';
 import { withFirebase } from '../../../firebase';
 import { filter } from 'lodash';
@@ -51,7 +52,12 @@ class Topic extends React.Component {
     })
   }
 
-  handleClick = id => () => {
+  handleButtonClick = () => {
+    const { history, match: { params: { id } } } = this.props;
+    history.push(`/admin/topic/${id}/questions`);
+  }
+
+  handleRowClick = id => () => {
     const { history } = this.props;
     history.push(`/admin/question/${id}`)
   }
@@ -70,7 +76,7 @@ class Topic extends React.Component {
     const { page, rowsPerPage, questions } = this.state;
 
     const content = questions.map((question, index) =>
-      <TableRow key={question.id} hover onClick={this.handleClick(question.id)}>
+      <TableRow key={question.id} hover onClick={this.handleRowClick(question.id)}>
         <TableCell>
           {index + 1}
         </TableCell>
@@ -81,7 +87,15 @@ class Topic extends React.Component {
 
     return (
       <React.Fragment>
-        <h1>Topic questions</h1>
+        <div className="topic-question-title">
+          <p>Topic questions</p>
+          <Button type="button" color="primary" variant="outlined"
+            onClick={this.handleButtonClick}
+          >
+            New question
+          </Button>
+        </div>
+
         <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>

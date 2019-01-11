@@ -46,7 +46,8 @@ class App extends Component {
             <Route exact path="/admin" component={Home} />
             <Route exact path="/admin/topics" component={Topic} />
             <Route exact path="/admin/topic/:id" component={TopicQuestions} />
-            <Route exact path="/admin/questions" component={CreateQuestion} />
+            <Route exact path="/admin/topic/:id/questions" component={CreateQuestion} />
+            {/* <Route exact path="/admin/questions" component={CreateQuestion} /> */}
             <Route exact path="/admin/question/:id" component={Question} />
           </Layout>
         </Switch>
