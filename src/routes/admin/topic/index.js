@@ -10,7 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { withFirebase } from '../../../firebase';
 import withModal from '../../../components/withModal';
-import Modal from '../../../components/modal';
+import { TopicForm } from '../../../components/form';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DetailsIcon from '@material-ui/icons/Details';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const styles = theme => ({
   root: {
@@ -22,47 +26,86 @@ const styles = theme => ({
   },
 });
 
+let _isMounted = false;
+
 class Topics extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      topics: []
+      topics: [],
     }
   }
 
   componentDidMount() {
     const { firebase } = this.props;
+    _isMounted = true;
 
-    firebase.topics().once('value', snapshot => {
-      let data = Object.values(snapshot.val());
-      let topics = data.reduce((acc, value) => {
-        let temp = {
-          name: value.name,
-          questions: Object.keys(value.questions).length
-        };
-        acc.push(temp);
+    firebase.topics().on('value', snapshot => {
+      if (_isMounted) {
+        let keys = Object.keys(snapshot.val());
+        let data = Object.values(snapshot.val());
+        let topics = data.reduce((acc, value, index) => {
+          const questions = value.questions ? Object.keys(value.questions).length : 0;
+          let temp = {
+            id: keys[index],
+            name: value.name,
+            questions
+          };
+          acc.push(temp);
 
-        return acc;
-      }, []);
+          return acc;
+        }, []);
 
-      this.setState({ topics });
+        this.setState({ topics });
+      }
     })
   }
 
-  handleClick = id => () => {
+  componentWillUnmount() {
+    _isMounted = false;
+  }
+
+  handleClickMore = id => () => {
     const { history } = this.props;
     history.push(`/admin/topic/${id}`);
   }
 
+  handleClickDelete = id => () => {
+    const { firebase } = this.props;
+    var r = window.confirm("Do you want to delete this topic?");
+    if (r == true) {
+      firebase.topics().child(id).set(null, function (error) {
+        if (error) {
+          alert('Delete fail');
+        } else {
+          alert('Delete success');
+        }
+      });
+    }
+  }
+
   render() {
+
     const { classes, handleClick } = this.props;
     const { topics } = this.state;
 
     const content = topics.map(topic =>
-      <TableRow key={topic.name} hover onClick={this.handleClick(topic.name)}>
+      <TableRow key={topic.name} hover>
         <TableCell>{topic.name}</TableCell>
         <TableCell>{topic.questions}</TableCell>
+        <TableCell>
+          <IconButton aria-label="Delete"
+            onClick={this.handleClickMore(topic.name)}
+          >
+            <MoreHorizIcon />
+          </IconButton>
+          <IconButton aria-label="Delete"
+            onClick={this.handleClickDelete(topic.id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </TableCell>
       </TableRow>
     )
 
@@ -83,6 +126,7 @@ class Topics extends React.Component {
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Number of questions</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -99,4 +143,6 @@ Topics.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withFirebase(withModal(Modal, withStyles(styles)(Topics)));
+export default withFirebase(withModal(TopicForm, withStyles(styles)(Topics)));
+
+// ToDo: refactor this code file

@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import { isEmpty, remove, indexOf } from 'lodash';
 import { validate, questionFromData } from './helper';
 
+const topic = window.location.pathname.split('/')[3];
+
 class RichQuestion extends React.Component {
   constructor(props) {
     super(props);
@@ -39,24 +41,38 @@ class RichQuestion extends React.Component {
 
   handleSubmit = () => {
     // ToDo: validate already choose a correct answer
-    const { question, answerOptions, answerKeys } = this.state;
-    const newQuestion = questionFromData(question, answerOptions, answerKeys);
+    const { question, answerOptions, answerKeys, level, type } = this.state;
+    const newQuestion = questionFromData(question, answerOptions, answerKeys, level, type);
 
     try {
       validate(answerKeys, answerOptions);
       const { firebase } = this.props;
-      // firebase.questions().push(newQuestion);
+      const { key: questionId } = firebase.questions().push(newQuestion, function (error) { // push the question to questions
+        if (error)
+          alert('Error has occured during saving process')
+        else
+          alert("Question has been saved succesfully")
+      })
+
+      firebase.topicId(topic).then(res => { // push the question just created to topic
+        const id = Object.keys(res.val())[0];
+        firebase.topic(id).push({ id: questionId })
+      });
+
     } catch (err) {
       alert(err.message)
     }
   }
 
-  handleContentChange = name => option => {
-    const { answerOptions } = this.state;
-
-    const index = indexOf(config.optionName, name);
-    answerOptions[index] = { ...option }
-    this.setState({ answerOptions })
+  handleContentChange = name => input => {
+    const { answerOptions, question } = this.state;
+    if (name === 'question') {
+      this.setState({ question: input })
+    } else {
+      const index = indexOf(config.optionName, name);
+      answerOptions[index] = { ...input }
+      this.setState({ answerOptions })
+    }
   }
 
   handleRemove = name => {

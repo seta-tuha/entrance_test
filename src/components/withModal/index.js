@@ -1,7 +1,6 @@
 import React from 'react';
-import Modal from '../modal';
 
-const withModal = (ModalComponent = Modal, WrappedComponent) => {
+const withModal = (ModalComponent, WrappedComponent) => {
   return class withModalComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -13,7 +12,6 @@ const withModal = (ModalComponent = Modal, WrappedComponent) => {
     }
 
     openModal = data => {
-      console.log('open modal');
       this.setState({ open: true })
     }
 
@@ -29,7 +27,7 @@ const withModal = (ModalComponent = Modal, WrappedComponent) => {
           <WrappedComponent {...this.props} handleClick={this.openModal} />
           {
             open
-              ? <Modal isOpen={open} handleClickOpen={this.openModal}
+              ? <ModalComponent isOpen={open} handleClickOpen={this.openModal}
                 handleClickClose={this.closeModal}
               />
               : null
