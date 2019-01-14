@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { withFirebase } from '../../../firebase';
 import withModal from '../../../components/withModal';
-import Modal from '../../../components/modal';
+import { TopicForm } from '../../../components/modal';
 
 const styles = theme => ({
   root: {
@@ -34,20 +34,20 @@ class Topics extends React.Component {
   componentDidMount() {
     const { firebase } = this.props;
 
-    firebase.topics().once('value', snapshot => {
-      let data = Object.values(snapshot.val());
-      let topics = data.reduce((acc, value) => {
-        let temp = {
-          name: value.name,
-          questions: Object.keys(value.questions).length
-        };
-        acc.push(temp);
+    // firebase.topics().once('value', snapshot => {
+    //   let data = Object.values(snapshot.val());
+    //   let topics = data.reduce((acc, value) => {
+    //     let temp = {
+    //       name: value.name,
+    //       questions: Object.keys(value.questions).length
+    //     };
+    //     acc.push(temp);
 
-        return acc;
-      }, []);
+    //     return acc;
+    //   }, []);
 
-      this.setState({ topics });
-    })
+    //   this.setState({ topics });
+    // })
   }
 
   handleClick = id => () => {
@@ -99,4 +99,4 @@ Topics.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withFirebase(withModal(Modal, withStyles(styles)(Topics)));
+export default withFirebase(withModal(TopicForm, withStyles(styles)(Topics)));

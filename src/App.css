@@ -149,3 +149,8 @@ select {
 		width: 70%;
 		margin: 0 auto
 }
+
+.error {
+	color: red;
+	font-size: 0.8rem;
+}
