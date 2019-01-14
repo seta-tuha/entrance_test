@@ -27,8 +27,6 @@ class App extends Component {
           <Route path='/admin' render={() => <Admin user={this.state.user} />} />
           <Route path='/editor' render={() => <Editor user={this.state.user} />} />
           <Route path='/candidate' render={() => <Candidate user={this.state.user} />} />
-
-
         </Fragment>
       </Router>
     );
