@@ -1,15 +1,21 @@
 import React from 'react';
 import { upperFirst } from 'lodash';
+import SelectMaterial from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const Select = ({ currentOption, options, name, handleChange }) => {
+const Select = ({ value, options, name, handleChange }) => {
   const content = options.map(el =>
-    <option value={el} key={el}>{upperFirst(el)}</option>
+    <MenuItem value={el} key={el}>{upperFirst(el)}</MenuItem>
   )
 
   return (
-    <select value={currentOption} name={name} onChange={handleChange}>
+    <SelectMaterial
+      value={value}
+      onChange={handleChange}
+      inputProps={{ name: name }}
+    >
       {content}
-    </select>
+    </SelectMaterial>
   );
 }
 

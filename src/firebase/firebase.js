@@ -18,28 +18,6 @@ class Firebase {
     this.auth = app.auth();
     this.db = app.database();
   }
-
-  doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
-
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
-
-  doSignOut = () => this.auth.signOut();
-
-  topics = () => this.db.ref('topics');
-
-  // topicId = name => this.db.ref('topics').orderByChild('name').equalTo(name)
-  //   .once('value', function (snapshot) {
-  //     return Object.keys(snapshot.val());
-  //   });
-
-  topicId = name => this.db.ref('topics').orderByChild('name').equalTo(name)
-    .once('value');
-
-  topic = id => this.db.ref(`topics/${id}/questions`);
-
-  questions = () => this.db.ref('questions');
 }
 
-export default Firebase;
+export default new Firebase();

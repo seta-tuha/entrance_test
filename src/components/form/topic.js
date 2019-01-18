@@ -1,12 +1,12 @@
 import React from 'react';
+import { createTopic } from '../../firebase';
+import { trim, isEmpty, toLower } from 'lodash';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import { withFirebase } from '../../firebase';
-import { trim, isEmpty, toLower } from 'lodash';
 
 class TopicForm extends React.Component {
   constructor(props) {
@@ -18,11 +18,11 @@ class TopicForm extends React.Component {
     }
   }
 
-  handleChange = e => {
+  onChange = e => {
     this.setState({ topic: e.target.value });
   }
 
-  handleSubmit = () => {
+  onSubmit = () => {
     let { topic } = this.state;
     topic = toLower(trim(topic));
 
@@ -30,51 +30,45 @@ class TopicForm extends React.Component {
       this.setState({
         error: 'Invalid topic name',
         topic: ''
-      })
-
-      setTimeout(() => this.setState({ error: null, topic: '' }), 1000);
+      }, () => setTimeout(() => this.setState({
+        error: null,
+        topic: ''
+      }), 1000));
     } else {
-      const { firebase, handleClickClose } = this.props;
+      const { closeModal } = this.props;
 
-      firebase.topics().once('value', snapshot => {
-        const data = Object.values(snapshot.val());
-        const currentTopics = data.map(topic => toLower(topic.name));
-
-        if (currentTopics.includes(topic)) {
-          this.setState({
-            error: 'Topic name already exists',
-            topic: ''
-          })
-
-          setTimeout(() => this.setState({ error: null, topic: '' }), 1000);
-        } else {
-          firebase.topics().push({ name: topic });
-          handleClickClose();
-        }
-      })
+      createTopic(
+        { name: topic },
+        ({ error, topic }) =>
+          this.setState({ error, topic }, () => setTimeout(() =>
+            this.setState({ error: null, topic: '' })
+            , 1000)
+          ),
+        closeModal
+      )
     }
   }
 
   render() {
-    const { isOpen, handleClickClose } = this.props;
+    const { isOpen, closeModal } = this.props;
     const { error } = this.state;
+    console.log(this.props);
 
     return (
       <div>
         <Dialog
           open={isOpen}
-          onClose={handleClickClose}
+          onClose={closeModal}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle>Create new Topic</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
-              margin="dense"
-              id="topic"
-              label="Topic name *"
               type="text"
-              onChange={this.handleChange}
+              margin="dense"
+              label="Topic name *"
+              onChange={this.onChange}
             />
             {
               error &&
@@ -82,10 +76,10 @@ class TopicForm extends React.Component {
             }
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClickClose} color="primary">
+            <Button onClick={closeModal} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primary">
+            <Button onClick={this.onSubmit} color="primary">
               Create
             </Button>
           </DialogActions>
@@ -95,6 +89,6 @@ class TopicForm extends React.Component {
   }
 }
 
-export default withFirebase(TopicForm);
+export default TopicForm;
 
 // ToDo: refactor

@@ -1,9 +1,13 @@
 import React from 'react';
-import { Editor, EditorState, convertFromRaw, RichUtils, convertToRaw } from 'draft-js';
-import { BlockStyleToolbar, getBlockStyle } from '../blockStyles';
+import {
+  Editor,
+  EditorState,
+  convertFromRaw,
+  RichUtils,
+  convertToRaw
+} from 'draft-js';
 import { isEmpty } from 'lodash';
-
-const content = '{ "blocks": [{ "key": "ep7p", "text": "xin chao", "type": "code-block", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }], "entityMap": {} }'
+import { BlockStyleToolbar, getBlockStyle } from '../blockStyles';
 
 class RichInput extends React.Component {
   constructor(props) {
@@ -16,36 +20,27 @@ class RichInput extends React.Component {
       }
     } else {
       this.state = {
-        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.content)))
+        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
       };
     }
   }
 
   onChange = editorState => {
     const { handleChange } = this.props;
-    const option = { answer: convertToRaw(editorState.getCurrentContent()) };
-    option.answer = JSON.stringify(option.answer);
+    const field = { content: convertToRaw(editorState.getCurrentContent()) };
+    field.content = JSON.stringify(field.content);
 
     this.setState({ editorState });
-    handleChange(option);
+    handleChange(field);
   }
 
   toggleBlockType = (blockType) => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
   };
 
-  handle = () => {
-    const { editorState } = this.state;
-    console.log(convertToRaw(editorState.getCurrentContent()));
-    const note = { content: convertToRaw(editorState.getCurrentContent()) }
-    note["content"] = JSON.stringify(note.content);
-    console.log(note);
-    this.setState({ content: note.content });
-    localStorage.setItem('test', note.content);
-  }
-
   render() {
     const { name } = this.props;
+
     return (
       <React.Fragment>
         <div className="toolbar">

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { login } from '../../../firebase';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import { withFirebase } from '../../../firebase';
 
 const styles = theme => ({
   loginForm: {
@@ -34,65 +34,74 @@ class Login extends React.Component {
       email: '',
       password: '',
       error: null,
+      notification: null
     };
   }
 
-  handleChange = e => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  handleSubmit = e => {
+  onSubmit = e => {
     const { email, password } = this.state;
     e.preventDefault();
 
-    this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
+    login(email, password)
       .then(res => {
-        this.setState({ ...INITIAL_STATE });
+        this.setState({
+          ...INITIAL_STATE,
+          error: null,
+          notification: 'Login successful'
+        })
       })
       .catch(error => {
-        this.setState({ error });
+        this.setState({ error: error.message, notification: null });
       });
   }
 
   render() {
     const { classes } = this.props;
-    const { email, password, error } = this.state;
+    const { email, password, error, notification } = this.state;
 
     return (
-      <Paper className={classes.loginForm}>
-        <h1 className={classes.center}>Login</h1>
-        <form onSubmit={this.handleSubmit}>
+      <Fragment>
+        <Paper className={classes.loginForm}>
           <FormControl fullWidth>
-            <TextField
-              label="Email"
-              name="email"
-              value={email}
-              onChange={this.handleChange}
-            />
+            {error ? error : notification}
           </FormControl>
-          <FormControl fullWidth>
-            <TextField
-              label="Password"
-              name="password"
-              type="password"
-              value={password}
-              onChange={this.handleChange}
-            />
-          </FormControl>
-          <Button className={classes.button} type="submit"
-            fullWidth variant="contained" color="primary">
-            Login
+
+          <h1 className={classes.center}>Login</h1>
+          <form onSubmit={this.onSubmit}>
+            <FormControl fullWidth>
+              <TextField
+                label="Email"
+                name="email"
+                value={email}
+                onChange={this.onChange}
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <TextField
+                label="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={this.onChange}
+              />
+            </FormControl>
+            <Button className={classes.button} type="submit"
+              fullWidth variant="contained" color="primary">
+              Login
           </Button>
 
-          {error && <p>{error.message}</p>}
-        </form>
-
-      </Paper>
+            {error && <p>{error.message}</p>}
+          </form>
+        </Paper>
+      </Fragment >
     );
   }
 }
 
-export default withFirebase(withStyles(styles)(Login));
+export default withStyles(styles)(Login);

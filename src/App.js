@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import Layout from './routes/admin/layout';
+import './App.css';
 import {
   Login,
   Home,
   Topic,
+  UpdateQuestion,
   TopicQuestions,
-  Question,
   CreateQuestion,
 } from './routes/admin';
+import Layout from './routes/admin/layout';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import MyEditor from './MyEditor';
-import './App.css';
 
 const User = () => {
   return (
@@ -31,7 +30,7 @@ class App extends Component {
   setCurrentUser = user => {
     this.setState = {
       currentUser: user,
-      authenticated: true
+      isSignedIn: false
     }
   }
 
@@ -41,14 +40,13 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={User} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/editor" component={MyEditor} />
           <Layout>
             <Route exact path="/admin" component={Home} />
             <Route exact path="/admin/topics" component={Topic} />
-            <Route exact path="/admin/topic/:id" component={TopicQuestions} />
-            <Route exact path="/admin/topic/:id/questions" component={CreateQuestion} />
+            <Route exact path="/admin/topic/:topic" component={TopicQuestions} />
+            <Route exact path="/admin/topic/:topic/questions" component={CreateQuestion} />
             {/* <Route exact path="/admin/questions" component={CreateQuestion} /> */}
-            <Route exact path="/admin/question/:id" component={Question} />
+            <Route exact path="/admin/:topic/question/:id" component={UpdateQuestion} />
           </Layout>
         </Switch>
       </BrowserRouter>

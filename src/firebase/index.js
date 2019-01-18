@@ -1,13 +1,14 @@
-import React from 'react';
-import FirebaseContext from './context';
-import Firebase from './firebase';
+import { login } from './auth';
+import { getQuestion, createQuestion, updateQuestion } from './questions';
+import { getTopics, deleteTopic, getQuestions, createTopic } from './topics';
 
-export default Firebase;
-
-export const withFirebase = Component => props => (
-  <FirebaseContext.Consumer>
-    {firebase => <Component {...props} firebase={firebase} />}
-  </FirebaseContext.Consumer>
-);
-
-export { FirebaseContext };
+export {
+  getTopics,
+  deleteTopic,
+  getQuestions,
+  getQuestion,
+  createQuestion,
+  updateQuestion,
+  createTopic,
+  login
+};
