@@ -1,32 +1,25 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import withAuthorization from 'hocs/withAuthorization';
+import { adminRoute, editorRoute } from 'hocs/withAuthorization';
+import withAuthentication from 'hocs/withAuthentication';
+import LoginPage from 'pages/Login';
 import AdminPage from 'pages/AdminPage';
 import CandidatePage from 'pages/CandidatePage';
 import EditorPage from 'pages/EditorPage';
 
-const Admin = withAuthorization(['admin'])(AdminPage);
-const Editor = withAuthorization(['admin', 'editor'])(EditorPage);
-const Candidate = withAuthorization(['candidate', 'admin', 'editor'])(CandidatePage);
+const Admin = adminRoute(AdminPage);
+const Editor = editorRoute(EditorPage);
+const TestPage = withAuthentication(CandidatePage);
 
 class App extends Component {
-  state = {
-    user: {
-      role: {
-        admin: false,
-        editor: false,
-        candidate: true
-      }
-    }
-  }
-
   render() {
     return (
       <Router>
         <Fragment>
-          <Route path='/admin' render={() => <Admin user={this.state.user} />} />
-          <Route path='/editor' render={() => <Editor user={this.state.user} />} />
-          <Route path='/candidate' render={() => <Candidate user={this.state.user} />} />
+          <Route path='/admin' component={Admin} />
+          <Route path='/editor' component={Editor} />
+          <Route path='/login' component={LoginPage} />
+          <Route path='/test' component={TestPage} />
         </Fragment>
       </Router>
     );

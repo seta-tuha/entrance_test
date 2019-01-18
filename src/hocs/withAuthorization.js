@@ -1,20 +1,34 @@
 import React from 'react';
+import { compose } from 'redux';
 import UnAuthorizedPage from 'pages/UnAuthorized';
-import LoginPage from 'pages/Login';
+import withAuthentication from './withAuthentication';
 
 
 const withAuthorization  = (alowedRoles) => WrappedComponent => {
     return (props) => {
-        console.log(props);
-        const { user } = props;
-        if (!user) return <LoginPage />
-        const { role } = user;
-        const allowed = alowedRoles.reduce((acc, alowedRole) => acc || role[alowedRole], false);
+        const { roles } = props;
+        if (!roles) {
+            return <div>Authorizing...</div>
+        }
+        const allowed = alowedRoles.reduce((acc, alowedRole) => acc || roles[alowedRole], false);
         if(allowed) {
-            return <WrappedComponent />
+            return <WrappedComponent {...props} />
         }
         return <UnAuthorizedPage />
     }
 }
 
-export default withAuthorization;
+const adminRoute = compose(
+    withAuthentication,
+    withAuthorization(['admin']),
+)
+
+const editorRoute = compose(
+    withAuthentication,
+    withAuthorization(['admin', 'editor'])
+)
+
+export {
+    adminRoute,
+    editorRoute
+}
