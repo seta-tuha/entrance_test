@@ -3,12 +3,11 @@ import './App.css';
 import {
   Login,
   Home,
-  Topic,
-  UpdateQuestion,
-  TopicQuestions,
-  CreateQuestion,
-} from './routes/admin';
-import Layout from './routes/admin/layout';
+  TopicsPage,
+  QuestionPage,
+  QuestionsPage
+} from 'pages/admin';
+import Layout from 'pages/admin/Layout';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const User = () => {
@@ -42,11 +41,14 @@ class App extends Component {
           <Route exact path="/login" component={Login} />
           <Layout>
             <Route exact path="/admin" component={Home} />
-            <Route exact path="/admin/topics" component={Topic} />
-            <Route exact path="/admin/topic/:topic" component={TopicQuestions} />
-            <Route exact path="/admin/topic/:topic/questions" component={CreateQuestion} />
-            {/* <Route exact path="/admin/questions" component={CreateQuestion} /> */}
-            <Route exact path="/admin/:topic/question/:id" component={UpdateQuestion} />
+            <Route exact path="/admin/topics" component={TopicsPage} />
+            <Route exact path="/admin/topic/:topic" component={QuestionsPage} />
+            <Route exact path="/admin/topic/:topic/questions"
+              component={QuestionPage}
+            />
+            <Route exact path="/admin/:topic/question/:questionId"
+              component={QuestionPage}
+            />
           </Layout>
         </Switch>
       </BrowserRouter>
