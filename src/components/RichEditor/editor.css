@@ -1,4 +1,18 @@
-.RichEditor-root {
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates. All rights reserved.
+ *
+ * This file provided by Facebook is for non-commercial testing and evaluation
+ * purposes only. Facebook reserves all rights not expressly granted.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+ .RichEditor-root {
   background: #fff;
   border: 1px solid #ddd;
   font-family: 'Georgia', serif;
@@ -13,17 +27,17 @@
   margin-top: 10px;
 }
 
-.RichEditor-editor .public-RichEditorPlaceholder-root,
-.RichEditor-editor .public-RichEditor-content {
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
   margin: 0 -15px -15px;
   padding: 15px;
 }
 
-.RichEditor-editor .public-RichEditor-content {
+.RichEditor-editor .public-DraftEditor-content {
   min-height: 100px;
 }
 
-.RichEditor-hidePlaceholder .public-RichEditorPlaceholder-root {
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
   display: none;
 }
 
@@ -36,12 +50,11 @@
   padding: 10px 20px;
 }
 
-.RichEditor-editor .public-DraftStyleDefault-pre > pre {
+.RichEditor-editor .public-DraftStyleDefault-pre {
   background-color: rgba(0, 0, 0, 0.05);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
   font-size: 16px;
   padding: 20px;
-  margin-bottom: 20px;
 }
 
 .RichEditor-controls {
