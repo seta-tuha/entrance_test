@@ -1,5 +1,5 @@
 import React from 'react';
-import RichInput from 'components/Input';
+import RichEditor from 'components/RichEditor';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
 
@@ -9,7 +9,7 @@ const AnswerInput = ({
   remove,
   content,
   isAnswer,
-  handleChange,
+  onChange,
 }) => {
   return (
     <div className="answer-wrapper flex-row">
@@ -27,7 +27,7 @@ const AnswerInput = ({
           </span>
         </div>
         <div className="editor">
-          <RichInput handleChange={handleChange(name)} content={content} />
+          <RichEditor onChange={onChange(name)} initData={content} />
         </div>
       </div>
     </div>

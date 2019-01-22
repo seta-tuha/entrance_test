@@ -3,7 +3,7 @@ import { upperFirst } from 'lodash';
 import SelectMaterial from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const Select = ({ value, options, name, handleChange }) => {
+const Select = ({ value, options, name, onSelect }) => {
   const content = options.map(el =>
     <MenuItem value={el} key={el}>{upperFirst(el)}</MenuItem>
   )
@@ -11,7 +11,7 @@ const Select = ({ value, options, name, handleChange }) => {
   return (
     <SelectMaterial
       value={value}
-      onChange={handleChange}
+      onChange={onSelect}
       inputProps={{ name: name }}
     >
       {content}

@@ -28,28 +28,37 @@ class QuestionPage extends React.Component {
     if (isEmpty(questionId)) {
       this.setState({ isLoading: false })
     } else {
-      getQuestion(questionId, question => this.setState({
-        ...question,
-        isLoading: false
-      }))
+      getQuestion(questionId, question => {
+        this.setState({
+          ...question,
+          isLoading: false
+        })
+      })
     }
   }
 
   onClickAddOption = () => {
     this.setState(({ options }) =>
       options.length < optionName.length
-        ? [...options, { content: null }]
-        : options
+        ? { options: [...options, { content: null }] }
+        : { options }
     )
   }
 
-  onInputChange = name => content => {
+  onEditorChange = name => content => {
     this.setState(({ options }) => {
       if (name === 'question') {
         return { question: { ...content } }
       } else {
         const index = optionName.indexOf(name);
-        return { options: [...options, options[index] = { ...content }] }
+        return {
+          options: options.map((op, optionIndex) => {
+            if (optionIndex === index) {
+              return { ...content }
+            }
+            return op
+          })
+        }
       }
     })
   }
@@ -68,10 +77,7 @@ class QuestionPage extends React.Component {
     const index = optionName.indexOf(name);
     this.setState(({ answers, type }) => {
       if (answers.includes(index)) {
-        return {
-          answers: answers.filter((answer, optionIndex) =>
-            optionIndex === index)
-        }
+        return { answers: answers.filter(answer => answer !== index) }
       }
 
       if (type === typeConfig[0]) {
@@ -79,7 +85,7 @@ class QuestionPage extends React.Component {
       }
 
       if (answers.length < optionName.length - 1) {
-        return { answer: [...answers, index] }
+        return { answers: [...answers, index] }
       }
     })
   }
@@ -110,20 +116,18 @@ class QuestionPage extends React.Component {
       level,
       type
     } = this.state;
-    const { typeOfSubmit,
-      match: { params: { topic, questionId } }
-    } = this.props;
+    const { match: { params: { topic, questionId } } } = this.props;
 
     try {
       validate(answers, options);
 
       const newQuestion = questionFromData({ question, options, answers, level, type, topic });
 
-      if (typeOfSubmit === 'create') {
+      if (!questionId) {
         createQuestion(topic, newQuestion, error =>
           this.hasError(error, 'create')
         );
-      } else if (typeOfSubmit === 'update') {
+      } else {
         updateQuestion(questionId, newQuestion, error =>
           this.hasError(error, 'update')
         );
@@ -135,6 +139,7 @@ class QuestionPage extends React.Component {
 
   render() {
     const { isLoading, error, ...question } = this.state;
+
     return (
       <React.Fragment>
         {
@@ -142,11 +147,11 @@ class QuestionPage extends React.Component {
             ? <Loading />
             : <Question {...this.props}
               question={question}
-              typeOfSubmit='update'
               onCheck={this.onCheck}
+              onSelect={this.onSelect}
               onSubmit={this.onSubmit}
               onRemove={this.onRemove}
-              onInputChange={this.onInputChange}
+              onEditorChange={this.onEditorChange}
               onClickAddOption={this.onClickAddOption}
             />
         }
