@@ -12,5 +12,14 @@ export default {
                 (error) => reject(error)
             );
         })
+    },
+    createQuestion() {
+
+    },
+    updateQuestion() {
+
+    },
+    submitResult() {
+
     }
 }
