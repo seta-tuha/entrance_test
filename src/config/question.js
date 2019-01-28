@@ -7,7 +7,7 @@ export const optionName = ['A', 'B', 'C', 'D'];
 const config = {
   level: levelConfig,
   type: typeConfig,
-  optionName,
-}
+  optionName
+};
 
 export default config;

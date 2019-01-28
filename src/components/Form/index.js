@@ -1,3 +1,3 @@
 import TopicForm from './TopicForm';
 
-export { TopicForm }
+export { TopicForm };  // eslint-disable-line

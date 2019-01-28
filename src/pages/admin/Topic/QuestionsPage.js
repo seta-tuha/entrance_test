@@ -1,24 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Loading } from 'components/Common';
 import Button from '@material-ui/core/Button';
 import { QuestionTable } from 'components/Table';
-import { getQuestions } from 'services/api/firebase';
+import { getQuestions, deleteQuestion } from 'services/api/firebase';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class QuestionsPage extends React.Component {
-
   state = {
-    page: 0,
-    rowsPerPage: 5,
     questions: [],
-    isLoading: true,
+    isLoading: true
   }
 
   componentDidMount() {
     const { match: { params: { topic } } } = this.props;
 
     getQuestions(topic, ({ questions, isLoading }) =>
-      this.setState({ questions, isLoading })
-    )
+      this.setState({ questions, isLoading }));
   }
 
   onCreate = () => {
@@ -26,25 +24,26 @@ class QuestionsPage extends React.Component {
     history.push(`/admin/topic/${topic}/questions`);
   }
 
-  handleChangePage = (event, page) => {
-    this.setState({ page });
-  };
-
-  handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value });
-  };
-
-  onDelete = id => () => {
-    alert('delete');
+  onDelete = (id, callback) => {
+    callback();
+    deleteQuestion(id, (error) => {
+      if (error) {
+        NotificationManager.warning('Delete question fail', 'Delete fail');
+      } else {
+        NotificationManager.success('Delete question succcessfully',
+          'Delete successfully');
+      }
+    });
   }
 
   onSeeDetail = id => () => {
     const { history, match: { params: { topic } } } = this.props;
-    history.push(`/admin/${topic}/question/${id}`)
+    history.push(`/admin/${topic}/question/${id}`);
   }
 
+  // eslint-disable-next-line
   onSeeDemo = data => () => {
-    console.log('see demo');
+    // console.log('see demo');
   }
 
   render() {
@@ -52,9 +51,11 @@ class QuestionsPage extends React.Component {
 
     return (
       <React.Fragment>
+        <NotificationContainer />
         <div className="topic-question-title">
           <p>Topic questions</p>
-          <Button type="button" color="primary" variant="outlined"
+          <Button
+            type="button" color="primary" variant="outlined"
             onClick={this.onCreate}
           >
             New question
@@ -63,13 +64,21 @@ class QuestionsPage extends React.Component {
         {
           isLoading
             ? <Loading />
-            : <QuestionTable questions={questions} onDelete={this.onDelete}
-              onSeeDetail={this.onSeeDetail} onSeeDemo={this.onSeeDemo}
-            />
+            : (
+              <QuestionTable
+                questions={questions} onDelete={this.onDelete}
+                onSeeDetail={this.onSeeDetail} onSeeDemo={this.onSeeDemo}
+              />
+            )
         }
       </React.Fragment>
     );
   }
 }
+
+QuestionsPage.propTypes = {
+  history: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({}).isRequired
+};
 
 export default QuestionsPage;

@@ -1,7 +1,7 @@
 import {
   parseQuestion,
   questionFromData,
-  listQuestionsFromData,
+  listQuestionsFromData
 } from './convertQuestion';
 
 export {

@@ -1,11 +1,18 @@
 import React, { Fragment } from 'react';
-import { login } from 'services/authenticate/firebase';
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { login } from 'services/authenticate/firebase';
 import FormControl from '@material-ui/core/FormControl';
+import {
+  NotificationContainer,
+  NotificationManager
+} from 'react-notifications';
+import { Formik } from 'formik';
 
+// eslint-disable-next-line
 const styles = theme => ({
   loginForm: {
     width: 300,
@@ -13,91 +20,87 @@ const styles = theme => ({
     padding: '1rem 1rem 2rem'
   },
   button: {
-    marginTop: '1.5rem',
+    marginTop: '1.5rem'
   },
   center: {
-    textAlign: 'center',
+    textAlign: 'center'
   }
 });
 
-const INITIAL_STATE = {
-  email: '',
-  password: '',
-  error: null,
-}
+// const INITIAL_STATE = {
+//   email: '',
+//   password: '',
+//   error: null
+// };
 
-class Login extends React.Component {
-  state = {
-    email: '',
-    password: '',
-    error: null,
-    notification: null,
-  }
+const Login = ({ classes }) => {
+  return (
+    <Fragment>
+      <NotificationContainer />
 
-  onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+      <Paper className={classes.loginForm}>
+        <h1 className={classes.center}>Login</h1>
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          onSubmit={(values, actions) => {
+            console.log(actions); // eslint-disable-line
+            login(values.email, values.password)
+              .then(() => {
+                NotificationManager.success('Login successfully',
+                  'Welcome');
+              })
+              .catch((error) => {
+                NotificationManager.warning(error.message, 'Login fail');
+              });
+          }}
+        >
+          {({
+            values,
+            errors,
+            handleSubmit,
+            handleChange
+          }) => (
+            <form onSubmit={handleSubmit}>
+              {errors.name
+                && (
+                  <FormControl fullWidth>
+                    {errors.name}
+                  </FormControl>
+                )
+              }
+              <FormControl fullWidth>
+                <TextField
+                  label="Email"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl fullWidth>
+                <TextField
+                  label="Password"
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <Button
+                className={classes.button} type="submit"
+                fullWidth variant="contained" color="primary"
+              >
+                Login
+              </Button>
+            </form>
+          )}
+        </Formik>
+      </Paper>
+    </Fragment>
+  );
+};
 
-  onSubmit = e => {
-    const { email, password } = this.state;
-    e.preventDefault();
-
-    login(email, password)
-      .then(res => {
-        this.setState({
-          ...INITIAL_STATE,
-          error: null,
-          notification: 'Login successful'
-        })
-      })
-      .catch(error => {
-        this.setState({ error: error.message, notification: null });
-      });
-  }
-
-  render() {
-    const { classes } = this.props;
-    const { email, password, error, notification } = this.state;
-
-    return (
-      <Fragment>
-        <Paper className={classes.loginForm}>
-          <FormControl fullWidth>
-            {error ? error : notification}
-          </FormControl>
-
-          <h1 className={classes.center}>Login</h1>
-          <form onSubmit={this.onSubmit}>
-            <FormControl fullWidth>
-              <TextField
-                label="Email"
-                name="email"
-                value={email}
-                onChange={this.onChange}
-              />
-            </FormControl>
-            <FormControl fullWidth>
-              <TextField
-                label="Password"
-                name="password"
-                type="password"
-                value={password}
-                onChange={this.onChange}
-              />
-            </FormControl>
-            <Button className={classes.button} type="submit"
-              fullWidth variant="contained" color="primary">
-              Login
-            </Button>
-
-            {error && <p>{error.message}</p>}
-          </form>
-        </Paper>
-      </Fragment >
-    );
-  }
-}
+Login.propTypes = {
+  classes: PropTypes.shape({}).isRequired
+};
 
 export default withStyles(styles)(Login);

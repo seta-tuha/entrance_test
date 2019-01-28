@@ -1,26 +1,27 @@
 import React from 'react';
-import withModal from './withModal';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import withModal from './withModal';
 import './index.css';
 
 
-export const Loading = props => {
+export const Loading = () => {
   return (
-    <div className='loading-panel'>
+    <div className="loading-panel">
       <CircularProgress size={50} />
     </div>
   );
-}
+};
 
 export const Confirm = ({
   data,
   isOpen,
   closeModal,
-  onDelete,
+  onDelete
 }) => {
   return (
     <Dialog
@@ -41,7 +42,14 @@ export const Confirm = ({
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
+  );
+};
+
+Confirm.propTypes = {
+  data: PropTypes.shape({}).isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
 
 export { withModal };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyleButton from './StyleButton';
 
 const BLOCK_TYPES = [
@@ -11,14 +12,14 @@ const BLOCK_TYPES = [
   { label: 'Blockquote', style: 'blockquote' },
   { label: 'UL', style: 'unordered-list-item' },
   { label: 'OL', style: 'ordered-list-item' },
-  { label: 'Code Block', style: 'code-block' },
+  { label: 'Code Block', style: 'code-block' }
 ];
 
 const INLINE_STYLES = [
   { label: 'Bold', style: 'BOLD' },
   { label: 'Italic', style: 'ITALIC' },
   { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
+  { label: 'Monospace', style: 'CODE' }
 ];
 
 const ToolBar = ({
@@ -36,7 +37,7 @@ const ToolBar = ({
   return (
     <div className="RichEditor-toolbar">
       <div className="RichEditor-controls" key="block-type">
-        {blockTypes.map((type) =>
+        {blockTypes.map(type => (
           <StyleButton
             key={type.label}
             active={type.style === currentBlockType}
@@ -44,10 +45,10 @@ const ToolBar = ({
             onToggle={onToggleBlock}
             style={type.style}
           />
-        )}
+        ))}
       </div>
       <div className="RichEditor-controls" key="inline-style">
-        {inlineStyles.map((type) =>
+        {inlineStyles.map(type => (
           <StyleButton
             key={type.label}
             active={currentInlineStyle.has(type.style)}
@@ -55,10 +56,10 @@ const ToolBar = ({
             onToggle={onToggleInline}
             style={type.style}
           />
-        )}
+        ))}
       </div>
       <div className="RichEditor-controls" key="addtional">
-        {additions.map((addition) =>
+        {additions.map(addition => (
           <StyleButton
             key={addition.label}
             active={addition.style === currentBlockType}
@@ -66,11 +67,11 @@ const ToolBar = ({
             style={addition.style}
             onToggle={addition.onClick}
           />
-        )}
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 ToolBar.defaultProps = {
   blocks: {
@@ -82,6 +83,13 @@ ToolBar.defaultProps = {
     onToggleInline: () => { }
   },
   additions: []
-}
+};
+
+ToolBar.propTypes = {
+  inlines: PropTypes.shape({}),
+  blocks: PropTypes.shape({}),
+  additions: PropTypes.arrayOf(PropTypes.shape({})),
+  editorState: PropTypes.shape({}).isRequired
+};
 
 export default ToolBar;

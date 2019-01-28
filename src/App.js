@@ -10,12 +10,13 @@ import {
 } from 'pages/admin';
 import Layout from 'pages/admin/Layout';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import 'react-notifications/lib/notifications.css';
 
 const User = () => {
   return (
     <div>User page</div>
   );
-}
+};
 
 class App extends Component {
   constructor(props) {
@@ -23,16 +24,14 @@ class App extends Component {
 
     this.state = {
       authenticated: false,
-      currentUser: null,
+      currentUser: null
     };
   }
 
-  setCurrentUser = user => {
-    this.setState = {
-      currentUser: user,
-      isSignedIn: false
-    }
-  }
+  setCurrentUser = user => this.setState({
+    currentUser: user,
+    isSignedIn: false
+  });
 
   render() {
     return (
@@ -44,10 +43,12 @@ class App extends Component {
             <Route exact path="/admin" component={Home} />
             <Route exact path="/admin/topics" component={TopicsPage} />
             <Route exact path="/admin/topic/:topic" component={QuestionsPage} />
-            <Route exact path="/admin/topic/:topic/questions"
+            <Route
+              exact path="/admin/topic/:topic/questions"
               component={CreateQuestionPage}
             />
-            <Route exact path="/admin/:topic/question/:questionId"
+            <Route
+              exact path="/admin/:topic/question/:questionId"
               component={UpdateQuestionPage}
             />
           </Layout>

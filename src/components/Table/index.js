@@ -1,14 +1,14 @@
 import React from 'react';
-import TopicTable from './TopicTable';
-import QuestionTable from './QuestionTable';
+import PropTypes from 'prop-types';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableHeadMaterial from '@material-ui/core/TableHead';
+import QuestionTable from './QuestionTable';
+import TopicTable from './TopicTable';
 
 export const TableHead = ({ heads }) => {
   const tableHeads = heads.map(head =>
-    <TableCell align="center" key={head}>{head}</TableCell>
-  )
+    <TableCell align="center" key={head}>{head}</TableCell>);
 
   return (
     <TableHeadMaterial>
@@ -17,6 +17,10 @@ export const TableHead = ({ heads }) => {
       </TableRow>
     </TableHeadMaterial>
   );
-}
+};
 
-export { QuestionTable, TopicTable }
+TableHead.propTypes = {
+  heads: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+export { QuestionTable, TopicTable };

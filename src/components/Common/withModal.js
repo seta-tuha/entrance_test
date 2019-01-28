@@ -8,18 +8,13 @@ const withModal = (ModalComponent, WrappedComponent) => {
       this.state = {
         open: false,
         data: {}
-      }
+      };
     }
 
-    openModal = data => {
-      this.setState({
-        open: true,
-        data
-      })
-    }
+    openModal = data => this.setState({ open: true, data })
 
     closeModal = () => {
-      this.setState({ open: false })
+      this.setState({ open: false });
     }
 
     render() {
@@ -30,15 +25,18 @@ const withModal = (ModalComponent, WrappedComponent) => {
           <WrappedComponent {...this.props} openModal={this.openModal} />
           {
             open
-              ? <ModalComponent isOpen={open} closeModal={this.closeModal}
-                {...this.props} data={data}
-              />
+              ? (
+                <ModalComponent
+                  isOpen={open} closeModal={this.closeModal}
+                  {...this.props} data={data}
+                />
+              )
               : null
           }
         </React.Fragment>
       );
     }
-  }
-}
+  };
+};
 
 export default withModal;

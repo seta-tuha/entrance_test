@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createTopic } from 'services/api/firebase';
 import { trim, isEmpty, toLower } from 'lodash';
 import Button from '@material-ui/core/Button';
@@ -14,13 +15,12 @@ class TopicForm extends React.Component {
 
     this.state = {
       topic: '',
-      error: null,
-    }
+      error: null
+    };
   }
 
-  onChange = e => {
-    this.setState({ topic: e.target.value });
-  }
+  onChange = e => this.setState({ topic: e.target.value });
+
 
   onSubmit = () => {
     let { topic } = this.state;
@@ -41,11 +41,10 @@ class TopicForm extends React.Component {
         { name: topic },
         ({ error, topic }) =>
           this.setState({ error, topic }, () => setTimeout(() =>
-            this.setState({ error: null, topic: '' })
-            , 1000)
-          ),
+            this.setState({ error: null, topic: '' }),
+          1000)),
         closeModal
-      )
+      );
     }
   }
 
@@ -70,8 +69,8 @@ class TopicForm extends React.Component {
               onChange={this.onChange}
             />
             {
-              error &&
-              <div className="error">{error}</div>
+              error
+              && <div className="error">{error}</div>
             }
           </DialogContent>
           <DialogActions>
@@ -89,5 +88,10 @@ class TopicForm extends React.Component {
 }
 
 export default TopicForm;
+
+TopicForm.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired
+};
 
 // ToDo: refactor

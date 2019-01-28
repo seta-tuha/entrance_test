@@ -1,36 +1,51 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Draft from 'draft-js';
 import ToolBar from './ToolBar';
 import 'draft-js/dist/Draft.css';
 import './editor.css';
 
-const { Editor, EditorState, Modifier, convertToRaw, convertFromRaw } = Draft;
+const {
+  Editor, EditorState, Modifier, convertToRaw, convertFromRaw
+} = Draft;
+
+// Custom overrides for "code" style.
+const styleMap = {
+  CODE: {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontSize: 16,
+    padding: 2
+  }
+};
 
 const emptyState = EditorState.createEmpty();
 class RichEditor extends Component {
   state = {
     editorState:
-      this.props.initData
+      this.props.initData  // eslint-disable-line
         ? EditorState.createWithContent(
-          convertFromRaw(JSON.parse(this.props.initData))
+          convertFromRaw(JSON.parse(this.props.initData)) // eslint-disable-line
         )
         : emptyState
   }
 
-  focus = () => {
-    this.refs.editor.focus();
+  componentDidMount() {
+    this.focus();
   }
+
+  focus = () => this.editorRef.focus();
 
   onChange = (editorState) => {
     const { onChange } = this.props;
     this.setState({ editorState });
-    onChange && onChange(JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-    );
+    onChange && onChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())));
   }
 
   addBlock = (blockType) => {
-    let selection = this.state.editorState.getSelection();
-    const currentBlockType = this.state.editorState
+    const { editorState } = this.state;
+    let selection = editorState.getSelection();
+    const currentBlockType = editorState
       .getCurrentContent()
       .getBlockForKey(selection.getStartKey())
       .getType();
@@ -39,10 +54,10 @@ class RichEditor extends Component {
       return;
     }
 
-    let contentState = this.state.editorState.getCurrentContent();
+    let contentState = editorState.getCurrentContent();
 
     contentState = Modifier.splitBlock(contentState, selection);
-    let newState = EditorState.push(this.state.editorState, contentState);
+    const newState = EditorState.push(editorState, contentState);
 
     selection = newState.getSelection();
 
@@ -52,10 +67,11 @@ class RichEditor extends Component {
 
 
   handleTab = (e) => {
+    const { editorState } = this.state;
     e.preventDefault();
-    const tabCharacter = "  ";
+    const tabCharacter = '  ';
 
-    const currentState = this.state.editorState;
+    const currentState = editorState;
     const newContentState = Modifier.replaceText(
       currentState.getCurrentContent(),
       currentState.getSelection(),
@@ -67,16 +83,12 @@ class RichEditor extends Component {
     });
   }
 
-  componentDidMount() {
-    this.focus();
-  }
-
   render() {
     const { editorState } = this.state;
     const { placeholder, rows = 1 } = this.props;
     const minHeight = `${rows}rem`;
     let className = 'RichEditor-editor';
-    var contentState = editorState.getCurrentContent();
+    const contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
         className += ' RichEditor-hidePlaceholder';
@@ -94,13 +106,13 @@ class RichEditor extends Component {
             { label: '</code>', onClick: this.addBlock, style: 'unstyled' }
           ]}
         />
-        <div className={className} onClick={this.focus}>
+        <div className={className} onClick={this.focus} role="presentation">
           <Editor
             customStyleMap={styleMap}
             editorState={editorState}
             onChange={this.onChange}
             onTab={this.handleTab}
-            ref="editor"
+            ref={(node) => { this.editorRef = node; }}
             placeholder={placeholder}
           />
         </div>
@@ -108,14 +120,18 @@ class RichEditor extends Component {
     );
   }
 }
-// Custom overrides for "code" style.
-const styleMap = {
-  CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2,
-  },
+
+RichEditor.defaultProps = {
+  placeholder: '',
+  rows: 1,
+  initData: ''
 };
 
-export default RichEditor
+RichEditor.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  rows: PropTypes.number,
+  initData: PropTypes.string
+};
+
+export default RichEditor;

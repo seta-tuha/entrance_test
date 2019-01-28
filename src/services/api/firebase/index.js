@@ -1,5 +1,12 @@
-import { getQuestion, createQuestion, updateQuestion } from './questions';
-import { getTopics, deleteTopic, getQuestions, createTopic } from './topics';
+import {
+  getQuestion,
+  createQuestion,
+  updateQuestion,
+  deleteQuestion
+} from './questions';
+import {
+  getTopics, deleteTopic, getQuestions, createTopic
+} from './topics';
 
 export {
   getTopics,
@@ -8,5 +15,6 @@ export {
   getQuestion,
   getQuestions,
   createQuestion,
-  updateQuestion
+  updateQuestion,
+  deleteQuestion
 };
