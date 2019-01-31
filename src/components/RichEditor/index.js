@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Draft from 'draft-js';
+import Prism from 'prismjs';
+
 import ToolBar from './ToolBar';
+// import decorators from './decorators';
+import PrismDecorator from './decorators/PrismDraftDecorator';
+
+
 import 'draft-js/dist/Draft.css';
 import './editor.css';
+import './prism.css';
+
+console.log(Prism.languages)
 
 const {
   Editor, EditorState, Modifier, convertToRaw, convertFromRaw
 } = Draft;
+const prismDecorator = new PrismDecorator(Prism.languages.javascript);
+// const prismDecorator = null;
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -19,13 +30,14 @@ const styleMap = {
   }
 };
 
-const emptyState = EditorState.createEmpty();
+const emptyState = EditorState.createEmpty(prismDecorator);
 class RichEditor extends Component {
   state = {
     editorState:
       this.props.initData  // eslint-disable-line
         ? EditorState.createWithContent(
-          convertFromRaw(JSON.parse(this.props.initData)) // eslint-disable-line
+          convertFromRaw(JSON.parse(this.props.initData)), // eslint-disable-line
+          prismDecorator
         )
         : emptyState
   }
