@@ -5,19 +5,21 @@
   "dependencies": {
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
+    "classnames": "^2.2.6",
     "draft-js": "^0.10.5",
     "firebase": "^5.7.2",
     "formik": "^1.4.2",
+    "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
+    "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-notifications": "^1.4.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.2",
-    "react-scroll": "^1.7.10",
-    "classnames": "^2.2.6"
+    "react-scroll": "^1.7.10"
   },
   "scripts": {
     "start": "react-scripts start",
