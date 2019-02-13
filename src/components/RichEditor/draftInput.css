@@ -1,0 +1,16 @@
+.RichEditor-editor .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+  font-size: 12px;
+  padding: 0.3rem;
+  margin: 0.5rem 0;
+}
+
+.public-DraftStyleDefault-pre > pre {
+  margin: 0.5rem 0;
+}
+
+.option {
+  display: inline-flex;
+  width: 49%;
+}

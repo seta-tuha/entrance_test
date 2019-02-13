@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Question from 'components/Question';
 import Button from '@material-ui/core/Button';
 import QuestionPage from './index';
 
-const UpdateQuestionPage = ({ classes, ...props }) => {
+const UpdateQuestionPage = ({ ...props }) => {
   return (
     <QuestionPage {...props}>
       {({
@@ -31,7 +30,7 @@ const UpdateQuestionPage = ({ classes, ...props }) => {
             renderSubmitButton={() => (
               <Button
                 type="button" color="primary" variant="contained"
-                fullWidth onClick={onSubmit}
+                fullWidth onClick={onSubmit} aria-label="Save"
               >
                 Save
               </Button>
@@ -42,10 +41,6 @@ const UpdateQuestionPage = ({ classes, ...props }) => {
       )}
     </QuestionPage>
   );
-};
-
-UpdateQuestionPage.propTypes = {
-  classes: PropTypes.shape({}).isRequired
 };
 
 export default UpdateQuestionPage;

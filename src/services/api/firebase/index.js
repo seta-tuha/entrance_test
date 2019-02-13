@@ -7,6 +7,10 @@ import {
 import {
   getTopics, deleteTopic, getQuestions, createTopic
 } from './topics';
+import {
+  getExamLevel, getExamDuration, generateExam, getExam, sendExamAnswers
+} from './exam';
+
 
 export {
   getTopics,
@@ -16,5 +20,10 @@ export {
   getQuestions,
   createQuestion,
   updateQuestion,
-  deleteQuestion
+  deleteQuestion,
+  getExamLevel,
+  getExamDuration,
+  generateExam,
+  getExam,
+  sendExamAnswers
 };

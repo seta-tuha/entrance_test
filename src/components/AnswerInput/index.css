@@ -1,0 +1,50 @@
+.answer-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.answer-wrapper svg:hover {
+	cursor: pointer;
+}
+
+.answerName {
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 16px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(46, 204, 113);
+	border-radius: 50%;
+}
+
+.optionName {
+	font-size: 14px;
+	font-weight: 600;
+	color: rgb(59, 59, 59);
+	text-transform: uppercase;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 16px;
+	background-color: rgb(238, 238, 238);
+	border-radius: 50%;
+}
+
+.checkIcon:hover {
+	color: rgb(46, 204, 113);
+}
+
+.removeIcon:hover {
+	color: red;
+}
+
+.isAnswer {
+	color: rgb(46, 204, 113);
+}

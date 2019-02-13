@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Select from 'components/Select';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import RichEditor from 'components/RichEditor';
+import { RichEditor } from 'components/RichEditor';
 import AnswerInput from 'components/AnswerInput';
 import { levelConfig, typeConfig, optionName } from 'config';
 import { withStyles } from '@material-ui/core/styles';
 import { Element } from 'react-scroll';
+import './index.css';
 
 // eslint-disable-next-line no-unused-vars
 const styles = theme => ({
@@ -26,7 +27,6 @@ const Question = ({
   onCheck,
   onSelect,
   onRemoveOption,
-  onRemoveQuestion,  // eslint-disable-line
   onUpdateQuestion,
   onUpdateAnswer,
   onClickAddOption,
@@ -87,7 +87,7 @@ const Question = ({
             <div className="action">
               <Button
                 type="button" size="small" color="primary"
-                className={classes.button}
+                className={classes.button} aria-label="Add an answer option"
                 onClick={() => onClickAddOption(meta.questionIndex)}
               >
                 Add an answer toption
@@ -115,7 +115,6 @@ Question.propTypes = {
   onCheck: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onRemoveOption: PropTypes.func.isRequired,
-  onRemoveQuestion: PropTypes.func.isRequired,
   onUpdateQuestion: PropTypes.func.isRequired,
   onUpdateAnswer: PropTypes.func.isRequired,
   onClickAddOption: PropTypes.func.isRequired,

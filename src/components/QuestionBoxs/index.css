@@ -2,6 +2,44 @@ p {
   margin: 0 0 1rem;
 }
 
+.question-result-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 20%;
+	height: 45px;
+	color: rgb(59, 59, 59);
+	font-weight: 500;
+	align-items: center;
+	position: relative;
+	font-size: 16px;
+	border: 1px solid rgb(238, 238, 238);
+	border-image: initial;
+	text-decoration: none;
+}
+
+.question-result-box:nth-child(n + 2) {
+	border-left: 0;
+}
+
+.question-result-box:nth-child(5n+1) {
+	border-left: 1px solid rgb(238, 238, 238);
+}
+
+.question-result-box:nth-child(n + 6) {
+	border-top: 0;
+}
+
+
+.question-result-box:hover {
+	cursor: pointer;
+}
+
+.question-result-selection-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .question-index {
   font-weight: 550;
   font-size: 17px;
@@ -35,3 +73,5 @@ p {
   left: 30px;
   background-color: rgb(235, 92, 85);
 }
+
+

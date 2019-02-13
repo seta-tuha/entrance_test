@@ -10,10 +10,7 @@ import {
   createQuestion,
   updateQuestion
 } from 'services/api/firebase';
-import {
-  NotificationContainer,
-  NotificationManager
-} from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 import UpdateQuestionPage from './UpdateQuestionPage';
 import CreateQuestionPage from './CreateQuestionPage';
 
@@ -189,7 +186,6 @@ class QuestionPage extends React.Component {
     // ToDo: validate already choose a correct answer
     const { questions } = this.state;
     const { match: { params: { topic, questionId } } } = this.props;
-
     try {
       // validate(answers, options);
       if (questionId) {
@@ -216,7 +212,6 @@ class QuestionPage extends React.Component {
 
     return (
       <React.Fragment>
-        <NotificationContainer />
         {
           isLoading
             ? <Loading />

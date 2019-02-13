@@ -1,0 +1,18 @@
+.config {
+	display: flex;
+}
+
+.answer-group {
+	margin: 0.5rem 0;
+}
+
+.answer-name {
+	display: inline;
+	margin-left: 1rem;
+}
+
+.action {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

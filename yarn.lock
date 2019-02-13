@@ -6628,6 +6628,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha1-QVxEePK8wwEgwizhDtMib30+GOA=
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -7049,6 +7054,16 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment-duration-format@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.2.2.tgz#b957612de26016c9ad9eb6087c054573e5127779"
+  integrity sha1-uVdhLeJgFsmtnrYIfAVFc+USd3k=
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -8834,6 +8849,22 @@ react-app-polyfill@^0.2.0:
     raf "3.4.0"
     whatwg-fetch "3.0.0"
 
+react-compound-timer@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-compound-timer/-/react-compound-timer-1.0.8.tgz#78a6454107578b928f5e39450a511329e6d93357"
+  integrity sha512-TlUPczqG4I0/d2w4eh5RTHct1n6zkDLXanjA85k7AIoaY9aGQwFtpAu/NgzSh/n+IvxaBB+CI7ndiQj3AmWI9A==
+  dependencies:
+    prop-types "^15.6.2"
+    react "^16.7.0"
+
+react-countdown-now@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-countdown-now/-/react-countdown-now-2.1.0.tgz#6daca892221276ca055fba1bacc2c58c5b63b79c"
+  integrity sha512-dAI4y1bpOScdXEWEHl1OAvFjt9I7MxVd7jmExdBcWhVVGcpHjA1wfFNptTtLCwl3qDc+rlXh65Ba7qxgF5gHwQ==
+  dependencies:
+    lodash.isequal "^4.5.0"
+    prop-types "^15.6.2"
+
 react-dev-utils@^7.0.0:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-7.0.1.tgz#c53e759a22668ee2c0d146c24ce4bdec2b41e3c8"
@@ -8999,6 +9030,11 @@ react-scroll@^1.7.10:
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
+
+react-timer-machine@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-timer-machine/-/react-timer-machine-1.0.2.tgz#c8d4b8bb5701ac890f4101c0add134f5408a96df"
+  integrity sha512-2O6AvKMLknKAjmi/g2FCy41AzBYpoYP599yacZ6fXO/7DCZ+JSwnUFkLrOp1/Vz4DN4WBcqKNVnVAoui39Ee6w==
 
 react-transition-group@^1.2.0:
   version "1.2.1"

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RichEditor from 'components/RichEditor';
+import { RichEditor } from 'components/RichEditor';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
+import './index.css';
 
 const AnswerInput = ({
   meta,

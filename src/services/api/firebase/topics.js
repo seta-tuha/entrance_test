@@ -2,6 +2,7 @@ import Firebase from 'services/firebase';
 import {
   keys, values, filter, toLower
 } from 'lodash';
+import { parseQuestionList } from 'ultis';
 
 export const getTopics = (onComplete) => {
   const topicsRef = Firebase.db.ref('topics');
@@ -40,12 +41,14 @@ export const getQuestions = (topicName, onComplete) => {
   questionsRef.on('value', (snapshot) => {
     const data = snapshot.val();
 
-    const allQuestions = keys(data).map((key) => {
-      const question = { id: key, ...data[key] };
-      return question;
-    });
+    // const allQuestions = keys(data).map(key => ({ id: key, ...data[key] }));
 
+    // const temp = filter(allQuestions, { topic: topicName });
+    // const questions = temp.map(q => parseQuestion(q));
+
+    const allQuestions = parseQuestionList(data);
     const questions = filter(allQuestions, { topic: topicName });
+
     onComplete({ questions, isLoading: false });
   });
 };

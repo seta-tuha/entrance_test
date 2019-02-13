@@ -5,9 +5,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import withModal from './withModal';
-import './index.css';
 
+import Modal from './Modal';
+import withModal from './withModal';
+import ModalContainer from './ModalContainer';
+import './index.css';
 
 export const Loading = () => {
   return (
@@ -34,10 +36,13 @@ export const Confirm = ({
         Are you sure you want to delete this record?
       </DialogTitle>
       <DialogActions>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={closeModal} color="primary" aria-label="Cancel">
           Cancel
         </Button>
-        <Button onClick={() => onDelete(data.id, closeModal)} color="primary">
+        <Button
+          onClick={() => onDelete(data.id, closeModal)} color="primary"
+          aria-label="Delete"
+        >
           Delete
         </Button>
       </DialogActions>
@@ -52,4 +57,4 @@ Confirm.propTypes = {
   onDelete: PropTypes.func.isRequired
 };
 
-export { withModal };
+export { withModal, Modal, ModalContainer };

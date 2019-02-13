@@ -1,4 +1,4 @@
-import { values } from 'lodash';
+import { keys, values } from 'lodash';
 
 export const parseQuestion = (question) => {
   const {
@@ -6,14 +6,22 @@ export const parseQuestion = (question) => {
   } = question;
 
   const convertedQuestion = {
+    id: question.id,
     type,
     level,
     topic,
     content: rest.question.raw,
+    short: rest.question.short,
     answers: rest.answers,
     options: values(rest.choices)
   };
   return convertedQuestion;
+};
+
+export const parseQuestionList = (questionsRaw) => {
+  const questionsKey = keys(questionsRaw);
+  const temp = questionsKey.map(key => ({ id: key, ...questionsRaw[key] }));
+  return temp.map(q => parseQuestion(q));
 };
 
 export const questionFromData = ({

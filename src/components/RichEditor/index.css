@@ -1,0 +1,8 @@
+.option svg:hover {
+  cursor: pointer;
+  color:  rgb(46, 204, 113);
+}
+
+.option .checked {
+  color:  rgb(46, 204, 113);
+}

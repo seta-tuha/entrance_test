@@ -74,10 +74,10 @@ class TopicForm extends React.Component {
             }
           </DialogContent>
           <DialogActions>
-            <Button onClick={closeModal} color="primary">
+            <Button onClick={closeModal} color="primary" aria-label="Cancel">
               Cancel
             </Button>
-            <Button onClick={this.onSubmit} color="primary">
+            <Button onClick={this.onSubmit} color="primary" aria-label="Create">
               Create
             </Button>
           </DialogActions>

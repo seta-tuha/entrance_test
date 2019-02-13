@@ -1,11 +1,16 @@
 import {
   parseQuestion,
   questionFromData,
-  listQuestionsFromData
-} from './convertQuestion';
+  listQuestionsFromData,
+  parseQuestionList
+} from './question';
+
+import { convertExamAnswers } from './exam';
 
 export {
   parseQuestion,
   questionFromData,
-  listQuestionsFromData
+  listQuestionsFromData,
+  parseQuestionList,
+  convertExamAnswers
 };

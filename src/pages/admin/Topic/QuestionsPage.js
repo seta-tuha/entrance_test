@@ -4,7 +4,7 @@ import { Loading } from 'components/Common';
 import Button from '@material-ui/core/Button';
 import { QuestionTable } from 'components/Table';
 import { getQuestions, deleteQuestion } from 'services/api/firebase';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 
 class QuestionsPage extends React.Component {
   state = {
@@ -51,12 +51,11 @@ class QuestionsPage extends React.Component {
 
     return (
       <React.Fragment>
-        <NotificationContainer />
         <div className="topic-question-title">
           <p>Topic questions</p>
           <Button
             type="button" color="primary" variant="outlined"
-            onClick={this.onCreate}
+            onClick={this.onCreate} aria-label="New question"
           >
             New question
           </Button>

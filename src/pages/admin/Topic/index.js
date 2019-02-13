@@ -43,7 +43,7 @@ class TopicsPage extends React.Component {
           <p>Topics</p>
           <Button
             type="button" color="primary" variant="outlined"
-            onClick={() => openModal({})}
+            onClick={() => openModal({})} aria-label="New topic"
           >
             New topic
           </Button>
@@ -69,5 +69,3 @@ TopicsPage.propTypes = {
 };
 
 export default withModal(TopicForm, TopicsPage);
-
-// ToDo: refactor this code file

@@ -28,8 +28,11 @@ const CreateQuestionPage = ({ ...props }) => {
           return (
             <React.Fragment>
               <div>Tạo câu hỏi</div>
-              <Button color="primary" onClick={onInitQuestion}>
-                Tạo câu hỏi
+              <Button
+                color="primary" onClick={onInitQuestion}
+                aria-label="Create new question"
+              >
+                Create new question
               </Button>
             </React.Fragment>
           );
@@ -52,10 +55,12 @@ const CreateQuestionPage = ({ ...props }) => {
                       onUpdateAnswer={onUpdateAnswer}
                       renderDeleteButton={() => (
                         <Tooltip title="Delete" placement="right-start">
-                          <IconButton>
+                          <IconButton
+                            onClick={() => onRemoveQuestion(qIndex)}
+                            aria-label="Delete question"
+                          >
                             <DeleteIcon
                               className="delete" size="large"
-                              onClick={() => onRemoveQuestion(qIndex)}
                             />
                           </IconButton>
                         </Tooltip>
@@ -66,6 +71,7 @@ const CreateQuestionPage = ({ ...props }) => {
                 }
               </div>
               <Button
+                aria-label="Add new question"
                 type="button" color="primary" variant="contained"
                 fullWidth onClick={onClickAddQuestion}
               >
@@ -75,7 +81,7 @@ const CreateQuestionPage = ({ ...props }) => {
             <div className="sidebar-action">
               <Button
                 type="button" variant="outlined" fullWidth
-                color="primary" onClick={onSubmit}
+                color="primary" onClick={onSubmit} aria-label="Save"
               >
                 Save
               </Button>

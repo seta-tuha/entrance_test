@@ -56,7 +56,7 @@ class QuestionTable extends React.Component {
     const content = showedQuestions.map((q, index) => (
       <TableRow key={q.id} hover>
         <TableCell align="center">{index + 1}</TableCell>
-        <TableCell align="center">{q.question.short}</TableCell>
+        <TableCell align="center">{q.short}</TableCell>
         <TableCell align="center">{q.type}</TableCell>
         <TableCell align="center">
           <DetailButton onClick={onSeeDetail(q.id)} />

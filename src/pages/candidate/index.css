@@ -1,0 +1,15 @@
+.count-down-clock {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.candidate-question {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.candidate-question-title {
+  color: red;
+  font-weight: 500;
+}
+

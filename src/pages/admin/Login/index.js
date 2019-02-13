@@ -1,16 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { login } from 'services/authenticate/firebase';
-import FormControl from '@material-ui/core/FormControl';
 import {
-  NotificationContainer,
   NotificationManager
 } from 'react-notifications';
 import { Formik } from 'formik';
+import { Paper, Button, FormControl } from '@material-ui/core';
 
 // eslint-disable-next-line
 const styles = theme => ({
@@ -36,8 +33,6 @@ const styles = theme => ({
 const Login = ({ classes }) => {
   return (
     <Fragment>
-      <NotificationContainer />
-
       <Paper className={classes.loginForm}>
         <h1 className={classes.center}>Login</h1>
         <Formik
@@ -86,7 +81,7 @@ const Login = ({ classes }) => {
                 />
               </FormControl>
               <Button
-                className={classes.button} type="submit"
+                className={classes.button} type="submit" aria-label="Login"
                 fullWidth variant="contained" color="primary"
               >
                 Login
