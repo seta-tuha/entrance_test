@@ -21,12 +21,12 @@ const styleMap = {
   }
 };
 
-const Option = ({ initData, toggleCheck, meta, isSelected }) => {
+const Option = ({ initData, toggleCheck, meta }) => {
   const className = 'RichEditor-editor';
 
   return (
     <div
-      className={isSelected ? 'option selected' : 'option'}
+      className="option"
       role="presentation"
       onClick={() => toggleCheck(meta)}
     >
@@ -55,8 +55,7 @@ Option.propTypes = {
     questionIndex: PropTypes.number,
     optionIndex: PropTypes.number,
     checked: PropTypes.bool
-  }).isRequired,
-  isSelected: PropTypes.bool.isRequired
+  }).isRequired
 };
 
 export default Option;

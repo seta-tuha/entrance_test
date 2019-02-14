@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {
-  Home,
+  Home as AdminHome,
   Login,
   Layout,
   TopicsPage,
@@ -11,7 +11,7 @@ import {
 } from 'pages/admin';
 import Hr from 'pages/hr';
 import Candidate from 'pages/candidate';
-import NotFound from 'pages/notFound';
+import { PageNotFound, Public } from 'pages/common';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 
@@ -19,10 +19,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route exact path="/" component={Public} />
         <Route exact path="/hr" component={Hr} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/exam/:examKey" component={Candidate} />
-        <Layout exact path="/admin" component={Home} />
+        <Layout exact path="/admin" component={AdminHome} />
         <Layout exact path="/admin/topics" component={TopicsPage} />
         <Layout exact path="/admin/topic/:topic" component={QuestionsPage} />
         <Layout
@@ -33,7 +34,7 @@ const App = () => {
           exact path="/admin/:topic/question/:questionId"
           component={UpdateQuestionPage}
         />
-        <Route component={NotFound} />
+        <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   );

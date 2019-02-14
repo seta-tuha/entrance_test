@@ -41,7 +41,7 @@ export const generateExam = ({
   const testsRef = Firebase.db.ref('tests');
   const { key } = testsRef.push();
   const newRecord = {};
-  newRecord[`${key}`] = { email, level, topic, duration }; // eslint-disable-line
+  newRecord[`${key}`] = { email, level, topic, duration, seen: false }; // eslint-disable-line
   testsRef.update(newRecord, (error) => {
     if (error) {
       onComplete({ isError: true, payload: 'Error has occured during saving process' });
@@ -54,8 +54,9 @@ export const generateExam = ({
 export const getExam = (key, onComplete) => {
   const testRef = Firebase.db.ref(`tests/${key}`);
   testRef.once('value', (snapshot) => {
-    const { questions, done } = snapshot.val();
-    onComplete(done ? null : parseQuestionList(questions));
+    const { questions, done, seen } = snapshot.val();
+    onComplete((seen || done) ? null : parseQuestionList(questions));
+    snapshot.ref.child('seen').set(true);
   });
 };
 

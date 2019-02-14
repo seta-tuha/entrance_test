@@ -10,7 +10,7 @@ momentDurationFormatSetup(moment);
 
 const QuestionList = ({
   questions, answers, page, questionPerPage, currentQuestion, onClickBox,
-  openModal, toggleCheck, keyBoardKey
+  openModal, toggleCheck
 }) => {
   const showedQuestions = questions.slice(page * questionPerPage,
     page * questionPerPage + questionPerPage);
@@ -65,7 +65,6 @@ const QuestionList = ({
                           checked: answers[page * questionPerPage + qIndex] === opIndex
                         }}
                         toggleCheck={toggleCheck}
-                        isSelected={opIndex === keyBoardKey - 1}
                       />
                     ))
                   }
@@ -87,8 +86,7 @@ QuestionList.propTypes = {
   currentQuestion: PropTypes.number.isRequired,
   onClickBox: PropTypes.func.isRequired,
   openModal: PropTypes.func.isRequired,
-  toggleCheck: PropTypes.func.isRequired,
-  keyBoardKey: PropTypes.string.isRequired
+  toggleCheck: PropTypes.func.isRequired
 };
 
 export default QuestionList;
