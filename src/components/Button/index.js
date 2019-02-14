@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import LaunchIcon from '@material-ui/icons/Launch';
-import IconButton from '@material-ui/core/IconButton';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import {
+  Delete as DeleteIcon,
+  Launch as LaunchIcon,
+  MoreHoriz as MoreHorizIcon
+} from '@material-ui/icons';
+import { Tooltip, IconButton } from '@material-ui/core';
 
 export const DeleteButton = ({ onClick }) => {
   return (

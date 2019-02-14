@@ -37,13 +37,21 @@ class DraftInput extends Component {
 
   render() {
     const { editorState } = this.state;
-
+    let className = 'RichEditor-editor';
+    const contentState = editorState.getCurrentContent();
+    if (!contentState.hasText()) {
+      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+        className += ' RichEditor-hidePlaceholder';
+      }
+    }
     return (
-      <Editor
-        customStyleMap={styleMap}
-        editorState={editorState}
-        readOnly
-      />
+      <div className={className} role="presentation">
+        <Editor
+          customStyleMap={styleMap}
+          editorState={editorState}
+          readOnly
+        />
+      </div>
     );
   }
 }

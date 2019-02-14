@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select from 'components/Select';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import { RichEditor } from 'components/RichEditor';
-import AnswerInput from 'components/AnswerInput';
-import { levelConfig, typeConfig, optionName } from 'config';
-import { withStyles } from '@material-ui/core/styles';
 import { Element } from 'react-scroll';
+import Select from 'components/Select';
+import AnswerInput from 'components/AnswerInput';
+import { Button, Paper } from '@material-ui/core';
+import { RichEditor } from 'components/RichEditor';
+import { withStyles } from '@material-ui/core/styles';
+import { levelConfig, typeConfig, optionName } from 'config';
 import './index.css';
 
 // eslint-disable-next-line no-unused-vars

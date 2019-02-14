@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { upperFirst } from 'lodash';
-import MenuItem from '@material-ui/core/MenuItem';
-import SelectMaterial from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
+import {
+  MenuItem, Select as SelectMaterial, FormControl
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

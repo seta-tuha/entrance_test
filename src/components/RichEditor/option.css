@@ -1,0 +1,13 @@
+.RichEditor-editor {
+  margin: 0;
+}
+
+.RichEditor-editor .pulic-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0;
+  padding: 0;
+}
+
+.option.selected {
+  border: 1px solid blue;
+}

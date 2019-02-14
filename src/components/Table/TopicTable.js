@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { toUpper } from 'lodash';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import { withModal, Confirm } from 'components/Common';
 import { DeleteButton, DetailButton } from 'components/Button';
+import {
+  Paper, Table, TableRow, TableCell, TableBody
+} from '@material-ui/core';
 import { TableHead } from './index';
 
 // eslint-disable-next-line
@@ -21,6 +19,8 @@ const styles = theme => ({
     minWidth: 700
   }
 });
+
+const tableHeads = ['Name', 'Number of questions', 'Action'];
 
 const TopicTable = ({
   topics, openModal, onSeeDetail, classes
@@ -39,7 +39,7 @@ const TopicTable = ({
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
-        <TableHead heads={['Name', 'Number of questions', 'Action']} />
+        <TableHead heads={tableHeads} />
         <TableBody>
           {content}
         </TableBody>

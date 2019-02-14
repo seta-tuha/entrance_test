@@ -1,13 +1,12 @@
-/* eslint-disable */
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+import PropTypes from 'prop-types';
+import { Dialog, DialogContent, DialogActions } from '@material-ui/core';
 
 const Modal = ({
-  renderLeftBtn,
-  renderRightBtn,
   renderHeader,
-  renderContent
+  renderContent,
+  renderLeftBtn,
+  renderRightBtn
 }) => {
   return (
     <Dialog
@@ -18,6 +17,11 @@ const Modal = ({
       {
         renderHeader()
       }
+      <DialogContent>
+        {
+          renderContent()
+        }
+      </DialogContent>
       <DialogActions>
         {
           renderLeftBtn()
@@ -28,6 +32,13 @@ const Modal = ({
       </DialogActions>
     </Dialog>
   );
+};
+
+Modal.propTypes = {
+  renderHeader: PropTypes.func.isRequired,
+  renderContent: PropTypes.func.isRequired,
+  renderLeftBtn: PropTypes.func.isRequired,
+  renderRightBtn: PropTypes.func.isRequired
 };
 
 export default Modal;

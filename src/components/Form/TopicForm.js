@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createTopic } from 'services/api/firebase';
 import { trim, isEmpty, toLower } from 'lodash';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import TextField from '@material-ui/core/TextField';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
+import {
+  Button, Dialog, TextField, DialogTitle, DialogActions, DialogContent
+} from '@material-ui/core';
 
 class TopicForm extends React.Component {
   constructor(props) {

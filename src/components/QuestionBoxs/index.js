@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
+import { sortBy } from 'lodash';
 import { Link } from 'react-scroll';
 import { optionName } from 'config';
-import { sortBy } from 'lodash';
+import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import './index.css';
 

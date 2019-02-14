@@ -49,19 +49,6 @@
   cursor: pointer;
 }
 
-.test-action-bar {
-  display: flex;
-  justify-content: space-between;
-}
-
-.options {
-  margin-top: 1rem;
-  /* display: flex; */
-  /* justify-content: space-between;
-  flex-wrap: wrap; */
-  padding-left: 1rem;
-}
-
 .current-question {
   background-color: #dddd;
 }

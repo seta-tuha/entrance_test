@@ -1,3 +1,7 @@
+.RichEditor-editor:hover {
+  cursor: pointer;
+}
+
 .RichEditor-editor .public-DraftStyleDefault-pre {
   background-color: rgba(0, 0, 0, 0.05);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
@@ -11,6 +15,12 @@
 }
 
 .option {
+  width: calc(50% - 1px);
   display: inline-flex;
-  width: 49%;
+  align-items: center;
+}
+
+.option:hover {
+  cursor: pointer;
+  border: 1px solid blue;
 }

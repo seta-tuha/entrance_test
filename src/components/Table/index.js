@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableHeadMaterial from '@material-ui/core/TableHead';
+import {
+  TableCell, TableRow, TableHead as TableHeadMaterial
+} from '@material-ui/core';
 import QuestionTable from './QuestionTable';
 import TopicTable from './TopicTable';
 

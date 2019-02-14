@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { RichEditor } from 'components/RichEditor';
-import CheckCircle from '@material-ui/icons/CheckCircle';
-import RemoveCircleOutline from '@material-ui/icons/RemoveCircleOutline';
+import {
+  CheckCircle as CheckCircleIcon,
+  RemoveCircleOutline as RemoveCircleOutlineIcon
+} from '@material-ui/icons';
 import './index.css';
 
 const AnswerInput = ({
@@ -16,11 +18,11 @@ const AnswerInput = ({
 }) => {
   return (
     <div className="answer-wrapper">
-      <RemoveCircleOutline
+      <RemoveCircleOutlineIcon
         fontSize="small" className="removeIcon"
         onClick={() => remove(meta)}
       />
-      <CheckCircle
+      <CheckCircleIcon
         fontSize="small" onClick={() => check(meta)}
         className={isAnswer ? 'isAnswer' : 'checkIcon'}
       />

@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Timer from '@material-ui/icons/Timer';
 import TimerMachine from 'react-timer-machine';
-import { getExam, sendExamAnswers } from 'services/api/firebase';
 import { DialogTitle, Button } from '@material-ui/core';
-import { ModalContainer, Modal, Loading } from 'components/Common';
 import momentDurationFormatSetup from 'moment-duration-format';
+import { getExam, sendExamAnswers } from 'services/api/firebase';
+import { ModalContainer, Modal, Loading } from 'components/Common';
+import { ArrowBack, ArrowForward, Timer } from '@material-ui/icons';
 import { NotificationManager } from 'react-notifications';
 import QuestionList from './QuestionList';
 import './index.css';
+
+const defaultKey = '0';
+const interval = 1000;
+const timeStart = 1800 * 1000;
+const keyBoard = ['1', '2', '3', '4'];
 
 momentDurationFormatSetup(moment);
 
@@ -18,16 +23,20 @@ class Candidate extends React.Component {
     started: false,
     questions: [],
     page: 0,
-    questionPerPage: 3,
+    questionPerPage: 1,
     currentQuestion: 1,
     answers: [],
-    isLoading: true
+    isLoading: true,
+    keyBoardKey: defaultKey
   }
 
   timer = React.createRef();
 
   componentDidMount() {
     const { match: { params: { examKey } } } = this.props;
+
+    window.addEventListener('keypress', this.onEnterKey);
+
     getExam(examKey, (questions) => {
       if (questions) {
         this.setState({
@@ -41,18 +50,32 @@ class Candidate extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('keypress', this.onKeyEnter);
+  }
+
   onBack = () => {
     this.setState(({ page, questionPerPage }) => ({
       page: page - 1,
-      currentQuestion: (page - 1) * questionPerPage + 1
+      currentQuestion: (page - 1) * questionPerPage + 1,
+      keyBoardKey: 0
     }));
   }
 
   onForward = () => {
     this.setState(({ page, questionPerPage }) => ({
       page: page + 1,
-      currentQuestion: (page + 1) * questionPerPage + 1
+      currentQuestion: (page + 1) * questionPerPage + 1,
+      keyBoardKey: 0
     }));
+  }
+
+  onEnterKey = ({ key }) => {
+    const { page } = this.state;
+    if (keyBoard.includes(key)) {
+      const optionIndex = parseInt(key, 10) - 1;
+      this.toggleCheck({ questionIndex: page, optionIndex });
+    }
   }
 
   onClickBox = (index) => {
@@ -60,22 +83,22 @@ class Candidate extends React.Component {
     if (index > questionPerPage) {
       const p = Math.floor(index / questionPerPage);
       const page = (index / questionPerPage > p) ? p + 1 : p;
-      this.setState({ page: page - 1, currentQuestion: index });
+      this.setState({ page: page - 1, currentQuestion: index, keyBoardKey: defaultKey });
     } else if (index !== currentQuestion) {
-      this.setState({ page: 0, currentQuestion: index });
+      this.setState({ page: 0, currentQuestion: index, keyBoardKey: defaultKey });
     }
   }
 
   toggleCheck = ({ questionIndex, optionIndex }) => {
     this.setState(({ answers }) => ({
       answers: answers.map((ans, index) => {
-        if (questionIndex === index) {
-          if (ans === optionIndex) {
-            return -1;
-          }
-          return optionIndex;
+        if (questionIndex !== index) {
+          return ans;
         }
-        return ans;
+        if (ans === optionIndex) {
+          return -1;
+        }
+        return optionIndex;
       })
     }));
   }
@@ -105,7 +128,7 @@ class Candidate extends React.Component {
   render() {
     const {
       started, questions, page, questionPerPage, currentQuestion, answers,
-      isLoading
+      isLoading, keyBoardKey
     } = this.state;
 
     if (isLoading) {
@@ -114,22 +137,6 @@ class Candidate extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="count-down-clock">
-          <Timer />
-          <span className="timer">
-            <TimerMachine
-              ref={this.timer}
-              timeStart={1800 * 1000}
-              started={started}
-              countdown
-              interval={1000}
-              formatTimer={(time, ms) =>
-                moment.duration(ms, 'milliseconds').format('mm:ss')
-              }
-              onComplete={this.onSubmit}
-            />
-          </span>
-        </div>
         <ModalContainer
           modalComponent={
             ({ closeModal }) => (
@@ -167,9 +174,46 @@ class Candidate extends React.Component {
                 onClickBox={this.onClickBox}
                 onForward={this.onForward}
                 toggleCheck={this.toggleCheck}
+                keyBoardKey={keyBoardKey}
               />
             )}
         />
+        <div className="test-action-bar-wrapper">
+          <div className="test-action-bar">
+            <Button
+              type="button" variant="contained"
+              disabled={page === 0}
+              onClick={this.onBack}
+            >
+              <ArrowBack />
+              Back
+            </Button>
+            <div className="count-down-clock">
+              <Timer />
+              <span className="timer">
+                <TimerMachine
+                  ref={this.timer}
+                  timeStart={timeStart}
+                  started={started}
+                  countdown
+                  interval={interval}
+                  formatTimer={(time, ms) =>
+                    moment.duration(ms, 'milliseconds').format('mm:ss')
+                  }
+                  onComplete={this.onSubmit}
+                />
+              </span>
+            </div>
+            <Button
+              type="button" variant="contained"
+              disabled={page >= Math.floor(questions.length / questionPerPage) - 1}
+              onClick={this.onForward}
+            >
+              Next
+              <ArrowForward />
+            </Button>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

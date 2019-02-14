@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Draft from 'draft-js';
 import Prism from 'prismjs';
-import CheckCircle from '@material-ui/icons/CheckCircle';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import PrismDecorator from './decorators/PrismDraftDecorator';
 import './index.css';
+import './option.css';
 
 const {
   Editor, EditorState, convertFromRaw
@@ -20,22 +21,29 @@ const styleMap = {
   }
 };
 
-const Option = ({ initData, toggleCheck, meta }) => {
+const Option = ({ initData, toggleCheck, meta, isSelected }) => {
+  const className = 'RichEditor-editor';
+
   return (
-    <div className="option">
-      <CheckCircle
+    <div
+      className={isSelected ? 'option selected' : 'option'}
+      role="presentation"
+      onClick={() => toggleCheck(meta)}
+    >
+      <CheckCircleIcon
         fontSize="small"
-        onClick={() => toggleCheck(meta)}
         className={meta.checked ? 'checked' : ''}
       />
-      <Editor
-        customStyleMap={styleMap}
-        editorState={EditorState.createWithContent(
-          convertFromRaw(JSON.parse(initData)),
-          prismDecorator
-        )}
-        readOnly
-      />
+      <div className={className} role="presentation">
+        <Editor
+          customStyleMap={styleMap}
+          editorState={EditorState.createWithContent(
+            convertFromRaw(JSON.parse(initData)),
+            prismDecorator
+          )}
+          readOnly
+        />
+      </div>
     </div>
   );
 };
@@ -47,7 +55,8 @@ Option.propTypes = {
     questionIndex: PropTypes.number,
     optionIndex: PropTypes.number,
     checked: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  isSelected: PropTypes.bool.isRequired
 };
 
 export default Option;

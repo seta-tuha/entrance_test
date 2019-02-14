@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {
+  Button, Dialog, DialogTitle, DialogActions, CircularProgress
+} from '@material-ui/core';
 
 import Modal from './Modal';
 import withModal from './withModal';

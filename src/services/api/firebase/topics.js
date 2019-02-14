@@ -40,12 +40,6 @@ export const getQuestions = (topicName, onComplete) => {
   const questionsRef = Firebase.db.ref('questions');
   questionsRef.on('value', (snapshot) => {
     const data = snapshot.val();
-
-    // const allQuestions = keys(data).map(key => ({ id: key, ...data[key] }));
-
-    // const temp = filter(allQuestions, { topic: topicName });
-    // const questions = temp.map(q => parseQuestion(q));
-
     const allQuestions = parseQuestionList(data);
     const questions = filter(allQuestions, { topic: topicName });
 
