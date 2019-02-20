@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {
   Button, Dialog, DialogTitle, DialogActions, CircularProgress
 } from '@material-ui/core';
-
 import Modal from './Modal';
 import withModal from './withModal';
 import ModalContainer from './ModalContainer';
+import LoadData from './LoadData';
 import './index.css';
 
 export const Loading = () => {
@@ -55,4 +55,6 @@ Confirm.propTypes = {
   onDelete: PropTypes.func.isRequired
 };
 
-export { withModal, Modal, ModalContainer };
+export {
+  withModal, Modal, ModalContainer, LoadData
+};

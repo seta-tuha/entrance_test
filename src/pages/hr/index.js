@@ -13,6 +13,7 @@ import {
   generateExam
 } from 'services/api/firebase';
 import { NotificationManager } from 'react-notifications';
+import Firebase from 'services/firebase';
 import './index.css';
 
 class Hr extends React.Component {
@@ -52,6 +53,10 @@ class Hr extends React.Component {
         });
       }
     });
+  }
+
+  onLogout = () => {
+    Firebase.auth.signOut();
   }
 
   render() {
@@ -134,6 +139,15 @@ class Hr extends React.Component {
             readOnly
             value={link}
           />
+        </FormControl>
+        <FormControl margin="dense">
+          <Button
+            variant="contained"
+            type="button" color="secondary" fullWidth
+            onClick={this.onLogout}
+          >
+            Logout
+          </Button>
         </FormControl>
       </div>
     );

@@ -1,21 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 import DefaultLayout from './DefaultLayout';
 
-const Layout = ({ component: Component, ...rest }) => {
+const withLayout = LayoutComponent => WrappedComponent => (props) => {
   return (
-    <DefaultLayout>
-      <Route {...rest} render={match => <Component {...match} />} />
-    </DefaultLayout>
+    <LayoutComponent>
+      <WrappedComponent {...props} />
+    </LayoutComponent>
   );
 };
 
-Layout.propTypes = {
-  component: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.element
-  ]).isRequired
-};
-
-export default Layout;
+export default withLayout(DefaultLayout);

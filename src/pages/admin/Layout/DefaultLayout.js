@@ -16,7 +16,7 @@ import {
   ListItemIcon, ListItemText, CssBaseline, IconButton, Typography, MenuItem,
   ListItem, Toolbar, Divider, AppBar, Drawer, List, Menu
 } from '@material-ui/core';
-
+import Firebase from 'services/firebase';
 
 const drawerWidth = 240;
 
@@ -110,6 +110,10 @@ class DefaultLayout extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  onLogout = () => {
+    Firebase.auth.signOut();
+  }
+
   render() {
     const { classes, theme, children } = this.props;
     const { anchorEl, open } = this.state;
@@ -155,7 +159,7 @@ class DefaultLayout extends React.Component {
                 onClose={this.handleClose}
               >
                 <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                <MenuItem onClick={this.onLogout}>Logout</MenuItem>
               </Menu>
             </div>
           </Toolbar>

@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { login } from 'services/authenticate/firebase';
 import {
   NotificationManager
 } from 'react-notifications';
 import { Formik } from 'formik';
-import { Paper, Button, FormControl } from '@material-ui/core';
+import {
+  Paper, Button, FormControl, TextField
+} from '@material-ui/core';
 
 // eslint-disable-next-line
 const styles = theme => ({
@@ -24,12 +25,6 @@ const styles = theme => ({
   }
 });
 
-// const INITIAL_STATE = {
-//   email: '',
-//   password: '',
-//   error: null
-// };
-
 const Login = ({ classes }) => {
   return (
     <Fragment>
@@ -37,8 +32,7 @@ const Login = ({ classes }) => {
         <h1 className={classes.center}>Login</h1>
         <Formik
           initialValues={{ email: '', password: '' }}
-          onSubmit={(values, actions) => {
-            console.log(actions); // eslint-disable-line
+          onSubmit={(values) => {
             login(values.email, values.password)
               .then(() => {
                 NotificationManager.success('Login successfully',
@@ -69,6 +63,7 @@ const Login = ({ classes }) => {
                   name="email"
                   value={values.email}
                   onChange={handleChange}
+                  inputProps={{ 'aria-label': 'Email' }}
                 />
               </FormControl>
               <FormControl fullWidth>
@@ -78,6 +73,7 @@ const Login = ({ classes }) => {
                   type="password"
                   value={values.password}
                   onChange={handleChange}
+                  inputProps={{ 'aria-label': 'Password' }}
                 />
               </FormControl>
               <Button
